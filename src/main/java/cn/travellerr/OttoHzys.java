@@ -1,17 +1,15 @@
 package cn.travellerr;
 
 import cn.travellerr.command.RegCommand;
+import cn.travellerr.config.Config;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
-import net.mamoe.mirai.event.Event;
-import net.mamoe.mirai.event.EventChannel;
-import net.mamoe.mirai.event.GlobalEventChannel;
-
 public final class OttoHzys extends JavaPlugin {
     public static final OttoHzys INSTANCE = new OttoHzys();
+    public static Config config;
 
     private OttoHzys() {
-        super(new JvmPluginDescriptionBuilder("cn.travellerr.otto-hzys", "0.1.0")
+        super(new JvmPluginDescriptionBuilder("cn.travellerr.otto-hzys", "1.0.0")
                 .name("otto-hzys")
                 .author("Travellerr")
 
@@ -21,6 +19,8 @@ public final class OttoHzys extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Plugin loaded!");
+        reloadPluginConfig(cn.travellerr.config.Config.INSTANCE);
+        config = Config.INSTANCE;
 
         RegCommand regCommand = RegCommand.INSTANCE;
         regCommand.register();

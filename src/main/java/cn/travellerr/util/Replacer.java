@@ -1,15 +1,11 @@
 package cn.travellerr.util;
 
-import cn.hutool.json.JSONParser;
-import cn.travellerr.Hzys;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,7 +52,7 @@ public class Replacer {
 
 
     public static String replaceNonChinese(String input) {
-        return input.replaceAll("[^\\u4E00-\\u9FA5]", "");
+        return input.replaceAll("[^\\u4E00-\\u9FA5]", "^");
     }
 
     public static String replaceEnglishToChinese(String input) {

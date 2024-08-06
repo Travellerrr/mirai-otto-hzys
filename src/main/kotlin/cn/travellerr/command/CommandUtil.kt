@@ -1,7 +1,7 @@
 package cn.travellerr.command
 
-import cn.travellerr.OttoHzys
 import cn.travellerr.Hzys
+import cn.travellerr.OttoHzys
 import cn.travellerr.util.Log
 import net.mamoe.mirai.console.command.CommandContext
 import net.mamoe.mirai.console.command.SimpleCommand

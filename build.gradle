@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'cn.travellerr'
-version = '0.1.0'
+version = '1.0.0'
 
 repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }
@@ -16,9 +16,9 @@ dependencies {
     api "net.mamoe:mirai-silk-converter:0.0.5"
     implementation 'cn.hutool:hutool-all:5.8.25'
     implementation 'com.belerweb:pinyin4j:2.5.0'
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 mirai {
-    jvmTarget JavaVersion.VERSION_1_8
+    jvmTarget JavaVersion.VERSION_11
 }
