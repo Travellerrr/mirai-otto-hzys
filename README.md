@@ -20,8 +20,17 @@
 ---
 
 ## 配置
+音频处理配置在 `./config/cn.travellerr.otto-hzys/config.yml` 中
+```yaml
+# ffmpeg目录路径
+ffmpegPath: ''
+```
 
-唯一配置在 `data/cn.travellerr.otto-hzys/ysddTable.json` 下
+不填默认使用Mirai Silk Converter进行音频转换，否则使用填入的ffmpeg进行转换
+
+<br>
+
+主配置在 `data/cn.travellerr.otto-hzys/ysddTable.json` 下
 
 ``` json
 {
