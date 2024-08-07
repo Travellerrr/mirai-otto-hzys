@@ -50,7 +50,7 @@ public class Hzys {
             Pinyin4jEngine engine = new Pinyin4jEngine();
             String input = Replacer.replaceEnglishToChinese(msg);
             input = Replacer.replaceNonChinese(input);
-            String pinyin = engine.getPinyin(input, " ") + " ^s";
+            String pinyin = engine.getPinyin(input, " ") + " ^";
             String[] stringArray = Replacer.replaceYsdd(pinyin.split(" "));
 
             List<AudioInputStream> audioInputStreams = new ArrayList<>();
@@ -93,7 +93,6 @@ public class Hzys {
                 File f2 = new File("temp/" + time + ".amr");
                 Thread thread = new Thread(()-> {
                     try {
-
                         String[] command = {ffmpeg, "-i", outputFile.getAbsolutePath(), "-ab", "23.85k", "-ar", "16000",
                                 "-ac", "1", "-acodec", "amr_wb", "-fs", "1000000", "-y", f2.getAbsolutePath()};
                         Process process = Runtime.getRuntime().exec(command);
