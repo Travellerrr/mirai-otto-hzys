@@ -41,15 +41,6 @@ public class Replacer {
             {"z", "贼"}
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
-    private static final JsonObject YSDD_TABLE;
-    static {
-        try (InputStreamReader reader = new FileReader(DATA_FOLDER_PATH+"/ysddTable.json")) {
-            YSDD_TABLE = JsonParser.parseReader(reader).getAsJsonObject();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load ysddTable.json in "+DATA_FOLDER_PATH+"/ysddTable.json", e);
-        }
-    }
-
 
     public static String replaceNonChinese(String input) {
         return input.replaceAll("[^\\u4E00-\\u9FA5]", "^");
@@ -70,6 +61,12 @@ public class Replacer {
     }
 
     public static String[] replaceYsdd(String[] input) {
+        JsonObject YSDD_TABLE;
+        try (InputStreamReader reader = new FileReader(DATA_FOLDER_PATH+"/ysddTable.json")) {
+            YSDD_TABLE = JsonParser.parseReader(reader).getAsJsonObject();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load ysddTable.json in "+DATA_FOLDER_PATH+"/ysddTable.json", e);
+        }
         StringBuilder combinedInput = new StringBuilder();
         for (String s : input) {
             combinedInput.append(s).append(" ");
