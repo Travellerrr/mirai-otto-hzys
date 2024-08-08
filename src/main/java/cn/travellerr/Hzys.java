@@ -90,31 +90,30 @@ public class Hzys {
             AudioSystem.write(appendedFiles, AudioFileFormat.Type.WAVE, outputFile);
             String ffmpeg = OttoHzys.config.getFfmpegPath();
             if (!ffmpeg.isEmpty()) {
+                Log.info("开始转换 wav -> amr");
                 File f2 = new File("temp/" + time + ".amr");
-                Thread thread = new Thread(()-> {
-                    try {
-                        String[] command = {ffmpeg, "-i", outputFile.getAbsolutePath(), "-ab", "23.85k", "-ar", "16000",
-                                "-ac", "1", "-acodec", "amr_wb", "-fs", "1000000", "-y", f2.getAbsolutePath()};
-                        Process process = Runtime.getRuntime().exec(command);
-                        InputStream errStream = process.getErrorStream();
-                        int proc = process.waitFor();
-                        if(proc != 0) {
-                            throw new RuntimeException("执行失败！"+errStream);
-                        }
-                        ExternalResource resource = ExternalResource.create(f2);
-                        Audio au = ((AudioSupported)subject).uploadAudio(resource);
-                        subject.sendMessage(au);
-                        resource.close();
-                        errStream.close();
-                        process.destroy();
-                        outputFile.delete();
-                        f2.delete();
-                    } catch (IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
+                try {
+                    String[] command = {ffmpeg, "-i", outputFile.getAbsolutePath(), "-ab", "23.85k", "-ar", "16000",
+                            "-ac", "1", "-acodec", "amr_wb", "-fs", "1000000", "-y", f2.getAbsolutePath()};
+                    Process process = Runtime.getRuntime().exec(command);
+                    InputStream errStream = process.getErrorStream();
+                    int proc = process.waitFor();
+                    if(proc != 0) {
+                        throw new RuntimeException("执行失败！"+errStream);
                     }
-                });
-                thread.start();
+                    ExternalResource resource = ExternalResource.create(f2);
+                    Audio au = ((AudioSupported)subject).uploadAudio(resource);
+                    subject.sendMessage(au);
+                    resource.close();
+                    errStream.close();
+                    process.destroy();
+                    outputFile.delete();
+                    f2.delete();
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
+                Log.info("拼合成功！");
                 ExternalResource resource = ExternalResource.create(outputFile);
                 Audio au = ((AudioSupported)subject).uploadAudio(resource);
                 subject.sendMessage(au);
@@ -193,7 +192,7 @@ public class Hzys {
                     new File(DATA_FOLDER_PATH +"/sources/" + fileName + ".wav")
             );
         } catch (Exception e1) {
-            Log.info("Failed to load audio file: " + fileName + " in "+ DATA_FOLDER_PATH+"/sources/" + fileName + ".wav, starting to try ysddSources");
+            Log.debug("Failed to load audio file: " + fileName + " in "+ DATA_FOLDER_PATH+"/sources/" + fileName + ".wav, starting to try ysddSources");
             try {
                 return AudioSystem.getAudioInputStream(
                         new File(DATA_FOLDER_PATH +"/ysddSources/" + fileName + ".wav")

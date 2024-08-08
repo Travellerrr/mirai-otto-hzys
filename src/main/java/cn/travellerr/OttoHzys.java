@@ -13,7 +13,7 @@ public final class OttoHzys extends JavaPlugin {
     public static Config config;
 
     private OttoHzys() {
-        super(new JvmPluginDescriptionBuilder("cn.travellerr.otto-hzys", "1.0.1")
+        super(new JvmPluginDescriptionBuilder("cn.travellerr.otto-hzys", "1.0.2")
                 .name("otto-hzys")
                 .author("Travellerr")
 
